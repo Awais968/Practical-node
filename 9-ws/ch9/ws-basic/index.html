@@ -1,0 +1,21 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <input id="text" value="Hello"/>
+    <script type="text/javascript">
+      var ws = new WebSocket('ws://localhost:3000')
+      ws.onopen = function(event) {
+        ws.send('front-end message: ABC');
+      };
+      ws.onmessage = function(event) {
+        console.log('server message: ', event.data)
+      };
+      const el = document.getElementById('text')
+      el.addEventListener('input', (event)=>{
+        console.log(event, el)
+        ws.send(`your input value is ${el.value}`)
+      })
+    </script>
+  </body>
+</html>
